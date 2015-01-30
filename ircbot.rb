@@ -49,10 +49,10 @@ class App < Sinatra::Application
       if send.is_a? String
         App.ircbot.Channel(ch).send(send)
       end
-
-
     end
-    "OK"
+    status 200
+    headers "Connection: close"
+    body "OK\r\n"
   end
 end
 
