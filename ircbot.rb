@@ -42,7 +42,7 @@ class App < Sinatra::Application
         # Fetch tag from 'refs/tags/<our tag>'
         tag = data['ref'].split('/')[2]
         url = data['repository']['homepage'] + '/tree/' + tag
-        author = data['user_name']
+        user_name = data['user_name']
         send = "[#{project_name.capitalize}] #{user_name} Published new tag: #{tag} | View tag: #{url}"
       end
 
