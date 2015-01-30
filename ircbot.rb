@@ -52,8 +52,7 @@ class App < Sinatra::Application
 
 
     end
-    status 200
-    body "Thank you"
+    "OK"
   end
 end
 
