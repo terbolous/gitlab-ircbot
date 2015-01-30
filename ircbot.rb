@@ -30,7 +30,7 @@ class App < Sinatra::Application
     if $config['gitlab'].include? project_name
       ch = $config['gitlab'][project_name]['channel']
       send = nil
-      unless data['ref'].include? 'ref/tags'
+      unless data['ref'].include? 'refs/tags'
         # FIXME: chec if this is commit or tag
         commit = data['commits'][0]
         commit_message = commit['message'].gsub(/\n/," ")
