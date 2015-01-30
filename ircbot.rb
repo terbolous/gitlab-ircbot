@@ -12,7 +12,7 @@ channels = $config['gitlab'].values.map { |c| c['channel']}
 
 class App < Sinatra::Application
   class << self
-    attr_accessor :irbot
+    attr_accessor :ircbot
   end
   @@ircbot = nil
 
