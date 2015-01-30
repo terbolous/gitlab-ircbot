@@ -1,0 +1,12 @@
+irc:
+  :server: irc.freenode.net
+  :port: 6667
+  :ssl: false
+  :nick: ircbot
+
+sinatra:
+  port: 4567
+
+gitlab:
+  "reponame":
+    channel: "#gitlab-test"
