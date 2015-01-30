@@ -38,7 +38,7 @@ class App < Sinatra::Application
         commit_sha = commit['id'][0..8]
         commit_url = commit['url']
         send  = "[#{project_name.capitalize}] #{user} | #{commit_message} | View Commit: #{commit_url}"
-      elsif data['ref'].include? 'refs/tags'
+      else data['ref'].include? 'refs/tags'
         # Fetch tag from 'refs/tags/<our tag>'
         tag = data['ref'].split('/')[2]
         url = data['repository']['homepage'] + '/tree/' + tag
