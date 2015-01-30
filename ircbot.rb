@@ -29,17 +29,28 @@ class App < Sinatra::Application
 
     if $config['gitlab'].include? project_name
       ch = $config['gitlab'][project_name]['channel']
+      send = nil
+      if data.include? commits
+        # FIXME: chec if this is commit or tag
+        commit = data['commits'][0]
+        commit_message = commit['message'].gsub(/\n/," ")
+        user = commit['author']['name']
+        commit_sha = commit['id'][0..8]
+        commit_url = commit['url']
+        send  = "[#{project_name.capitalize}] #{user} | #{commit_message} | View Commit: #{commit_url}"
+      elsif data['ref'].include? 'refs/tags'
+        # Fetch tag from 'refs/tags/<our tag>'
+        tag = data['ref'].split('/')[2]
+        url = data['repository']['homepage'] + '/tree/' + tag
 
-      commit = data['commits'][0]
-      commit_message = commit['message'].gsub(/\n/," ")
-      user = commit['author']['name']
-      message = commit['message'].lines.first
-      commit_sha = commit['id'][0..8]
-      commit_url = commit['url']
+        send = "[#{project_name.capitalize}] New Tag: #{tag} | View Tag: #{url}"
+      end
+
+      if send.is_a? String
+        App.ircbot.Channel(ch).send(send)
+      end
 
 
-      send  = "[#{data['repository']['name'].capitalize}] #{user} | #{commit_message} | View Commit: #{commit_url}"
-      App.ircbot.Channel(ch).send(send)
     end
     status 200
     body "Thank you"
