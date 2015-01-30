@@ -42,8 +42,8 @@ class App < Sinatra::Application
         # Fetch tag from 'refs/tags/<our tag>'
         tag = data['ref'].split('/')[2]
         url = data['repository']['homepage'] + '/tree/' + tag
-
-        send = "[#{project_name.capitalize}] New Tag: #{tag} | View Tag: #{url}"
+        author = data['user_name']
+        send = "[#{project_name.capitalize}] #{user_name} Published new tag: #{tag} | View tag: #{url}"
       end
 
       if send.is_a? String
